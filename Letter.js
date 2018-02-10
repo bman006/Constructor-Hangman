@@ -46,8 +46,4 @@ function Letter() {
     }
 }
 
-
 module.exports = Letter;
-
-var thing = new Letter();
-console.log(thing.checkGuess(letter, guess));
