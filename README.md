@@ -13,5 +13,9 @@
     3. #### index.js: 
         Runs the game by selecting a random word and storing via word.js code
 
-## Letters.js
+## Notes
 *  By using fromCharCode(), it is easy to programmatically make an array of arrays that can be used to check previous user entries
+Generated array takes the form [[`A`, letterObject], [`B`, letterObject], ... [`Z`, letterObject]]
+
+    * After further development, the array of arrays was not a necessary addition. In fact it made the code more compicated. Instead During the loop, a variable was passed into the constructor giving the created object a property that could be referenced the same way.
+    
