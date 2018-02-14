@@ -4,17 +4,18 @@ function Word(newWord) {
     this.rawWord = newWord;
     
     //To make sure word is in all caps for function usage
-    this.makeWordAllCaps = function() {
+    this.makeHangmanWord = function() {
         var tempWord = ``;
         for (var i = 0; i < this.rawWord.length; i++) {
             var tempLetter = this.rawWord.charAt(i).toUpperCase();
-            tempWord += tempLetter;
+            tempWord += tempLetter + ` `;
         }
+        tempWord.trim();
         return tempWord;
     } 
 
     //Store the all upper case word for function usage
-    this.word = this.makeWordAllCaps();
+    this.word = this.makeHangmanWord();
 
     //Generate an array to store all the letter objects
     //Create as an array of arrays for ease of reference
@@ -38,7 +39,7 @@ function Word(newWord) {
     //Create initial string for display word
     this.makeDisplayWord = function() {
         var tempWord = ``;
-        for (var i = 0; i < this.word.length; i++) {
+        for (var i = 0; i < this.word.length; i+=2) {
             //Check if this is a letter or space
             if(this.word.charCodeAt(i) === ` `.charCodeAt()) {
                 tempWord += ` `;
@@ -48,7 +49,9 @@ function Word(newWord) {
                 var index = this.word.charCodeAt(i) - 65;
                 tempWord += this.letterArray[index].charUpdate();
             }
+            tempWord += ` `;
         }
+        tempWord.trim();
         this.displayWord = tempWord;
     }
 
