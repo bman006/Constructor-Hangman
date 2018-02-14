@@ -60,13 +60,17 @@ function resolveGuess(guess, wasGuessed) {
                 playAgain()
             }
         }
-        
+
         //If you got here, then there is more game to go
         gamePrompt();
     }
 }
 
 function playAgain() {
+
+    //For some reason this prompt isn't working
+
+    console.log(`checker 1`);
     inquirer.prompt([
         {
             type: `confirm`,
@@ -74,7 +78,9 @@ function playAgain() {
             message: `Would you like to play again?`
         }
     ]).then(answers => {
+        console.log(`checker 2`);
         if (answers.playAgain) {
+            console.log(`checker 3`);
             console.log(`\n`);
             startGame();
         }
@@ -93,7 +99,3 @@ function subtractAGuess() {
 }
 
 startGame();
-
-function here() {
-    console.log(`you got to this place`);
-}
