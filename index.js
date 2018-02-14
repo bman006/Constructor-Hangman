@@ -6,8 +6,8 @@ var hangman;
 var guessesLeft;
 
 function startGame() {
-    // hangman = new Word(randomWords());
-    hangman = new Word(`word`);
+    hangman = new Word(randomWords());
+    console.log(hangman.rawWord);
     hangman.makeDisplayWord();
     guessesLeft = 12;
     gamePrompt();
@@ -33,44 +33,36 @@ function gamePrompt() {
     ]).then(answers => {
         var guess = answers.guess;
         var wasGuessed = hangman.updateIfGuessed(guess);
-        if (wasGuessed === true) {
-            console.log(`You already tried ${answers.guess}`);
+        resolveGuess(guess, wasGuessed);
+    });
+}
+
+function resolveGuess(guess, wasGuessed) {
+    if (wasGuessed === true) {
+        console.log(`You already tried ${guess}`);
+        subtractAGuess();
+        gamePrompt();
+    }
+    else {
+        var tempWord = hangman.displayWord;
+        hangman.makeDisplayWord();
+
+        //If the display word didn't change, the guess is no good
+        if (tempWord === hangman.displayWord) {
             subtractAGuess();
-            gamePrompt();
         }
+        //and if not SUCCESS!!!
         else {
-            var tempWord = hangman.displayWord;
-            hangman.makeDisplayWord();
-
-            //If the display word didn't change, the guess no good
-            if (tempWord === hangman.displayWord) {
-                subtractAGuess();
-            }
-            //and if not SUCCESS!!!
-            else {
-                console.log(`\nCORRECT!!!`);
-            }
-
+            console.log(`\nCORRECT!!!`);
             //Check for the win condition
             if(hangman.word === hangman.displayWord) {
                 console.log(`\nYOU WON!!! The word was: ${hangman.rawWord}`);
                 playAgain()
             }
-            
-            //If you got here, then there is more game to go
-            gamePrompt();
         }
-    });
-}
-
-function subtractAGuess() {
-    guessesLeft--;
-    if (guessesLeft === 0) {
-        console.log(`You...lost                 (sigh)`);
-        playAgain()
-    }
-    else {
-        console.log(`\nINCORRECT!!!\nYOU ONLY HAVE ${guessesLeft} GUESSES LEFT!!!`);
+        
+        //If you got here, then there is more game to go
+        gamePrompt();
     }
 }
 
@@ -89,4 +81,19 @@ function playAgain() {
     });
 }
 
+function subtractAGuess() {
+    guessesLeft--;
+    if (guessesLeft === 0) {
+        console.log(`You...lost                 (sigh)`);
+        playAgain()
+    }
+    else {
+        console.log(`\nINCORRECT!!!\nYOU ONLY HAVE ${guessesLeft} GUESSES LEFT!!!`);
+    }
+}
+
 startGame();
+
+function here() {
+    console.log(`you got to this place`);
+}
