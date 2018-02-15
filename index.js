@@ -7,7 +7,7 @@ var guessesLeft;
 
 function startGame() {
     hangman = new Word(randomWords());
-    console.log(hangman.rawWord);
+    // console.log(hangman.rawWord);    //Un-comment the code to the left if you want to make it easier to test the code working from the command line
     hangman.makeDisplayWord();
     guessesLeft = 12;
     gamePrompt();
@@ -58,11 +58,12 @@ function resolveGuess(guess, wasGuessed) {
             if(hangman.word === hangman.displayWord) {
                 console.log(`\nYOU WON!!! The word was: ${hangman.rawWord}`);
                 playAgain()
+                return
             }
+            //If you got here, then there is more game to go
+            gamePrompt();
         }
 
-        //If you got here, then there is more game to go
-        gamePrompt();
     }
 }
 
@@ -70,7 +71,6 @@ function playAgain() {
 
     //For some reason this prompt isn't working
 
-    console.log(`checker 1`);
     inquirer.prompt([
         {
             type: `confirm`,
@@ -78,9 +78,7 @@ function playAgain() {
             message: `Would you like to play again?`
         }
     ]).then(answers => {
-        console.log(`checker 2`);
         if (answers.playAgain) {
-            console.log(`checker 3`);
             console.log(`\n`);
             startGame();
         }
@@ -95,6 +93,7 @@ function subtractAGuess() {
     }
     else {
         console.log(`\nINCORRECT!!!\nYOU ONLY HAVE ${guessesLeft} GUESSES LEFT!!!`);
+        gamePrompt();
     }
 }
 
